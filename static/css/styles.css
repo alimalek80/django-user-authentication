@@ -24,3 +24,32 @@ body {
     background-color: #343a40;
     color: white;
 }
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.alert {
+    animation: slideInRight 1s ease-out;
+}
+
+.alert.slide-out {
+    animation: slideOutLeft 1s ease-in forwards;
+}

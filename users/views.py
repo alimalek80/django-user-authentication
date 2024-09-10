@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateUserForm
 
 
 def home(request):
@@ -47,4 +47,20 @@ def register_user(request):
             messages.warning(request, "Something wrong. Please try again.")
             return redirect('register')
     else:
-        return render(request, 'users/register.html', {'form':form})
+        return render(request, 'users/register.html', {'form': form})
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
+
+        if user_form.is_valid():
+            user_form.save()
+            login(request,current_user)
+            messages.success(request, "Profile has been updated.")
+            return redirect('home')
+        return render(request, "users/update_profile.html", {'user_form': user_form})
+    else:
+        messages.warning(request, "You should be logged in!")
+        return redirect('login')

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block content %}
+<div class="login-container text-center">
+    <h2 class="mb-4">Please Register</h2>
+    <form method="POST" action="{% url 'update_user' %}">
+                            {% csrf_token %}
+                            {{ user_form.as_p }}
+                            <br/><br/>
+                            <button type="submit" class="btn btn-secondary">Update Profile</button>
+</form>
+
+    <p class="mt-4">By <a href="#">AliMonlo</a></p>
+</div>
+{% endblock %}
